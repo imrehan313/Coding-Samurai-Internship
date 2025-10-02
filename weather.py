@@ -1,10 +1,11 @@
-import requests as re,speech_recognition as sr,pyttsx3 as p
-
+import requests as re,speech_recognition as sr,pyttsx3 as p,os
+#Use https://www.weatherapi.com/ for api key generation
 r=sr.Recognizer()
 
 def checkWeather(cityName):
+    api_key=os.getenv("WEATHER_API_KEY")
     p.speak(f"Checking the weather of {cityName}")
-    response =re.get(f"http://api.weatherapi.com/v1/current.json?key=fb410b65058a4cafbc3205204251209&q={cityName}&aqi=no").json()
+    response =re.get(f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={cityName}&aqi=no").json()
     try:
       city=response["location"]["name"]
       time=response["location"]["localtime"]
@@ -67,4 +68,5 @@ if __name__=="__main__":
        selectInput()
    except Exception as e:
      pass  
+
    
